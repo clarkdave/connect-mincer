@@ -19,22 +19,24 @@ Using connect-mincer, you can skip that work and simply:
 
 Now, in your connect app:
 
-    var connectMincer = require('connect-mincer')({
-      root: __dirname,
-      production: process.env.NODE_ENV === 'production',
-      assetUrl: '/assets',
-      manifestFile: __dirname + '/public/assets/manifest.json',
-      paths: [
-        'assets/css',
-        'assets/js',
-        'vendor/js'
-      ]
-    });
+``` javascript
+var connectMincer = require('connect-mincer')({
+  root: __dirname,
+  production: process.env.NODE_ENV === 'production',
+  assetUrl: '/assets',
+  manifestFile: __dirname + '/public/assets/manifest.json',
+  paths: [
+    'assets/css',
+    'assets/js',
+    'vendor/js'
+  ]
+});
 
-    app.use(connectMincer.assets());
+app.use(connectMincer.assets());
 
-    if (process.env.NODE_ENV !== 'production')
-      app.use('/assets', connectMincer.createServer());
+if (process.env.NODE_ENV !== 'production')
+  app.use('/assets', connectMincer.createServer());
+```
 
 The connectMincer.assets() middleware will:
 
@@ -43,10 +45,12 @@ The connectMincer.assets() middleware will:
 
 Now, in your views, you can do this:
 
-    <head>
-      <%- css('main.css') %>
-      <%- js('application.js') %>
-    </head>
+``` html
+<head>
+  <%- css('main.css') %>
+  <%- js('application.js') %>
+</head>
+```
 
 These helpers will output something like: `<script src='/assets/application.js'></script>`.
 
@@ -116,18 +120,20 @@ Because this is a middleware, it doesn't provide anything special to handle prec
 
 A simple precompile script:
 
-    var Mincer = require('mincer');
+``` javascript
+var Mincer = require('mincer');
 
-    var env = new Mincer.Environment('./');
-    env.appendPath('assets/js');
-    env.appendPath('assets/css');
-    env.appendPath('vendor/js');
+var env = new Mincer.Environment('./');
+env.appendPath('assets/js');
+env.appendPath('assets/css');
+env.appendPath('vendor/js');
 
-    var manifest = new Mincer.Manifest(env, './public/assets');
-    manifest.compile(['*', '*/**'], function(err, data) {
-      console.info('Finished precompile:');
-      console.dir(data);
-    });
+var manifest = new Mincer.Manifest(env, './public/assets');
+manifest.compile(['*', '*/**'], function(err, data) {
+  console.info('Finished precompile:');
+  console.dir(data);
+});
+```
 
 This will precompile everything in the `assets/js`, `assets/css` and `vendor/js` directories. You can pass in more specific paths to `manifest.compile()` if you only want certain things to be included.
 
