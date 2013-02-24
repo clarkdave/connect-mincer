@@ -18,7 +18,7 @@ If you're used to the Rails asset pipeline, using this will give your Connect/Ex
 
 ## Let's go!
 
-    npm install git://github.com/clarkdave/connect-mincer
+    npm install connect-mincer
 
 Now, in your connect app:
 
