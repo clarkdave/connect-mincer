@@ -1,10 +1,10 @@
 # connect-mincer
 
-This is an Express-compatible, connect middleware for [Mincer](https://github.com/nodeca/mincer).
+This is an Express-compatible, Connect middleware for [Mincer](https://github.com/nodeca/mincer).
 
 ## What is Mincer and why do I want this?
 
-Mincer is an excellent port of Sprockets, which means it is a robust and featured asset manager for your Node app. However, Mincer makes no assumptions about your application so by default it requires some work to get going with a typical Express app.
+Mincer is an excellent port of Sprockets, which means it is a robust and comprehensive asset manager for your Node app. However, Mincer makes no assumptions about your application so by default it requires some work to get going with a typical Express app.
 
 Using connect-mincer, you can skip that work and simply:
 
@@ -13,6 +13,8 @@ Using connect-mincer, you can skip that work and simply:
 * Serve files with an MD5 digest (for caching)
 * Use whatever directory structure you want
 * Precompile all your assets and have your Connect app read from the compile manifest
+
+If you're used to the Rails asset pipeline, using this will give your Connect/Express application almost all the same capability - the only thing missing is a built-in precompile, but that's easily added (see the [example app](https://github.com/clarkdave/connect-mincer/tree/master/examples/express) for an example precompile script).
 
 ## Let's go!
 
@@ -119,13 +121,11 @@ which will correspond to the file `/public/assets/application-4b02e3a0746a478865
 
 ### But I want to use Node to serve my static assets
 
-OK, cool, you can do that. The Mincer server is actually pretty good at serving precompiled assets. You can pass the manifest file in to the `connect-mincer.createServer` middleware to use it for production, like so:
+OK, cool, you can do that. After precompiling all your assets are ordinary static files in `public/assets`, so you can use the `connect.static` middleware to serve them like any other static file. You can also use the `connect.staticCache` middleware to speed it up for production.
 
 ``` javascript
-app.use('/assets', connectMincer.createServer(__dirname + '/public/assets/manifest.json'));
+app.use(connect.static(__dirname + '/public'));
 ```
-
-Now any requests to /assets will hit the Mincer server, and it will return the precompiled asset instead of compiling it. Because they are static files performance should be as good as or better than the Connect.static() middleware.
 
 ## Precompiling
 
@@ -152,11 +152,38 @@ This will precompile everything in the `assets/js`, `assets/css` and `vendor/js`
 
 If you were to run this from your root app directory, it would create the folder `/public/assets`, populate it with the compiled versions of all your assets, and create a manifest file suitable for passing to connect-mincer.
 
+A more substantial example of a precompile script is part of the express example app, [here](https://github.com/clarkdave/connect-mincer/blob/master/examples/express/bin/precompile_assets.js).
+
+## I want to know more about Mincer (bundles, custom engines, helpers)
+
+Mincer is, like Sprockets, really powerful. The [Mincer documentation](http://nodeca.github.com/mincer/) has you covered.
+
+connect-mincer supports anything Mincer does, so bundles and supported engines will all work out of the box. If you want to do more custom things, like adding helpers for your assets to use, you can add them directly to the Mincer Environment:
+
+``` javascript
+var connectMincer = new ConnectMincer({ ... });
+connectMincer.environment.registerHelper('version', function() {
+  require(__dirname, '/package.json').version;
+});
+```
+
+This will add a `version` helper which will be available in any asset, to be used like so:
+
+``` javascript
+app.version: '<%= version() %>';
+```
+
+Mincer supports helpers in EJS and Stylus. Fortunately, even if your asset is something else (e.g. CoffeeScript, LESS), you can attach the EJS processor to it and have variables too by appending `.ejs` to the file. Mincer processes a filename from right to left, so the file:
+
+    css/main.less.ejs
+
+will first be processed by EJS (resolving things like `<%= version() %>`) and then LESS itself.
+
 # TODO
 
 - add tests
 - allow use of a remote domain (e.g. Amazon S3) in production for helper outputs
 
-# LICENCE
+# Licence
 
 [MIT](https://github.com/clarkdave/connect-mincer/blob/master/LICENCE)
