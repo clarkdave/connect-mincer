@@ -97,7 +97,7 @@ Which would become:
 
 ## In production
 
-For production use, connect-mincer let's you pass in a Mincer manifest file and will use this to generate correct asset paths (with MD5 digests). Precompiling is easy, using Mincer.Manifest, and there's an example of this below. For now, let's assume you have precompiled your assets to the `/public/assets` directory. This directory will contain a `manifest.json` file which links asset filenames to their digest format.
+For production use, connect-mincer lets you pass in a Mincer manifest file and will use this to generate correct asset paths (with MD5 digests). Precompiling is easy, using Mincer.Manifest, and there's an example of this below. For now, let's assume you have precompiled your assets to the `/public/assets` directory. This directory will contain a `manifest.json` file which links asset filenames to their digest format.
 
 If you pass the manifest file to connect-mincer, e.g:
 
@@ -109,3 +109,30 @@ When the helpers (js, css, asset_path) are called in your views, connect-mincer 
 
 which will correspond to the file `/public/assets/application-4b02e3a0746a47886505c9acf5f8c655.js`. Now you can set nginx up to intercept requests to `/assets` and serve the static file in `/public/assets` instead. Thanks to the MD5 digest, you can set the cache headers to maximum. The next time you deploy and precompile the digests will change, and your app will adjust its `<script>` and `<link>` tags accordingly.
 
+## Precompiling
+
+Because this is a middleware, it doesn't provide anything special to handle precompiling. But that's OK, because it's easy to do with Mincer so you can create your own custom precompile routine (e.g. a grunt task).
+
+A simple precompile script:
+
+    var Mincer = require('mincer');
+
+    var env = new Mincer.Environment('./');
+    env.appendPath('assets/js');
+    env.appendPath('assets/css');
+    env.appendPath('vendor/js');
+
+    var manifest = new Mincer.Manifest(env, './public/assets');
+    manifest.compile(['*', '*/**'], function(err, data) {
+      console.info('Finished precompile:');
+      console.dir(data);
+    });
+
+This will precompile everything in the `assets/js`, `assets/css` and `vendor/js` directories. You can pass in more specific paths to `manifest.compile()` if you only want certain things to be included.
+
+If you were to run this from your root app directory, it would create the folder `/public/assets`, populate it with the compiled versions of all your assets, and create a manifest file suitable for passing to connect-mincer.
+
+# TODO
+
+- add example Express app
+- allow use of a remote domain (e.g. Amazon S3) in production for helper outputs
