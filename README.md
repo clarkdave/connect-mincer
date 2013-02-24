@@ -11,6 +11,7 @@ Using connect-mincer, you can skip that work and simply:
 * Write and serve CoffeeScript, LESS, Stylus, etc
 * Have everything recompiled on each request (in development)
 * Serve files with an MD5 digest (for caching)
+* Use whatever directory structure you want
 * Precompile all your assets and have your Connect app read from the compile manifest
 
 ## Let's go!
