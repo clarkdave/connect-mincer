@@ -112,14 +112,14 @@ will be returned in development mode. In production, only the bundle itself will
 
 In all cases, the urls returned here will contain their MD5 digest if the app is running in production.
 
-#### js(path, attributes) -> One or more <script> tags
+#### js(path, attributes) -> One or more script tags
 
 * filename (String) The filename of the asset relative to its asset directory
 * attributes (Object) An object containing attributes for the `<script>` tag
 
 Looks for a matching JS asset and returns `<script>` tag with the `src` attribute set. Additional attributes can be provided as the second argument.
 
-#### css(path, attributes) -> One or more <link> tags
+#### css(path, attributes) -> One or more link tags
 
 * filename (String) The filename of the asset relative to its asset directory
 * attributes (Object) An object containing attributes for the `<link>` tag
