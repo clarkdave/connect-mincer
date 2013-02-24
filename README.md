@@ -11,6 +11,7 @@ Using connect-mincer, you can skip that work and simply:
 * Write and serve CoffeeScript, LESS, Stylus, etc
 * Have everything recompiled on each request (in development)
 * Serve files with an MD5 digest (for caching)
+* Use whatever directory structure you want
 * Precompile all your assets and have your Connect app read from the compile manifest
 
 ## Let's go!
@@ -19,22 +20,24 @@ Using connect-mincer, you can skip that work and simply:
 
 Now, in your connect app:
 
-    var connectMincer = require('connect-mincer')({
-      root: __dirname,
-      production: process.env.NODE_ENV === 'production',
-      assetUrl: '/assets',
-      manifestFile: __dirname + '/public/assets/manifest.json',
-      paths: [
-        'assets/css',
-        'assets/js',
-        'vendor/js'
-      ]
-    });
+``` javascript
+var connectMincer = require('connect-mincer')({
+  root: __dirname,
+  production: process.env.NODE_ENV === 'production',
+  assetUrl: '/assets',
+  manifestFile: __dirname + '/public/assets/manifest.json',
+  paths: [
+    'assets/css',
+    'assets/js',
+    'vendor/js'
+  ]
+});
 
-    app.use(connectMincer.assets());
+app.use(connectMincer.assets());
 
-    if (process.env.NODE_ENV !== 'production')
-      app.use('/assets', connectMincer.createServer());
+if (process.env.NODE_ENV !== 'production')
+  app.use('/assets', connectMincer.createServer());
+```
 
 The connectMincer.assets() middleware will:
 
@@ -43,10 +46,12 @@ The connectMincer.assets() middleware will:
 
 Now, in your views, you can do this:
 
-    <head>
-      <%- css('main.css') %>
-      <%- js('application.js') %>
-    </head>
+``` html
+<head>
+  <%- css('main.css') %>
+  <%- js('application.js') %>
+</head>
+```
 
 These helpers will output something like: `<script src='/assets/application.js'></script>`.
 
@@ -110,24 +115,36 @@ When the helpers (js, css, asset_path) are called in your views, connect-mincer 
 
 which will correspond to the file `/public/assets/application-4b02e3a0746a47886505c9acf5f8c655.js`. Now you can set nginx up to intercept requests to `/assets` and serve the static file in `/public/assets` instead. Thanks to the MD5 digest, you can set the cache headers to maximum. The next time you deploy and precompile the digests will change, and your app will adjust its `<script>` and `<link>` tags accordingly.
 
+### But I want to use Node to serve my static assets
+
+OK, cool, you can do that. The Mincer server is actually pretty good at serving precompiled assets. You can pass the manifest file in to the `connect-mincer.createServer` middleware to use it for production, like so:
+
+``` javascript
+app.use('/assets', connectMincer.createServer(__dirname + '/public/assets/manifest.json'));
+```
+
+Now any requests to /assets will hit the Mincer server, and it will return the precompiled asset instead of compiling it. Because they are static files performance should be as good as or better than the Connect.static() middleware.
+
 ## Precompiling
 
 Because this is a middleware, it doesn't provide anything special to handle precompiling. But that's OK, because it's easy to do with Mincer so you can create your own custom precompile routine (e.g. a grunt task).
 
 A simple precompile script:
 
-    var Mincer = require('mincer');
+``` javascript
+var Mincer = require('mincer');
 
-    var env = new Mincer.Environment('./');
-    env.appendPath('assets/js');
-    env.appendPath('assets/css');
-    env.appendPath('vendor/js');
+var env = new Mincer.Environment('./');
+env.appendPath('assets/js');
+env.appendPath('assets/css');
+env.appendPath('vendor/js');
 
-    var manifest = new Mincer.Manifest(env, './public/assets');
-    manifest.compile(['*', '*/**'], function(err, data) {
-      console.info('Finished precompile:');
-      console.dir(data);
-    });
+var manifest = new Mincer.Manifest(env, './public/assets');
+manifest.compile(['*', '*/**'], function(err, data) {
+  console.info('Finished precompile:');
+  console.dir(data);
+});
+```
 
 This will precompile everything in the `assets/js`, `assets/css` and `vendor/js` directories. You can pass in more specific paths to `manifest.compile()` if you only want certain things to be included.
 
