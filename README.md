@@ -105,6 +105,33 @@ Which would become:
     <link href='/assets/blog/more.css' />
     <script src='/assets/jquery.js' />
 
+### View helpers
+
+connect-mincer provides several helpers which are available in all views. All of them take an asset filename as their first argument, which is used to search for a matching asset across all asset directories (i.e. the path option provided to connect-mincer). If the asset is actually a bundle (it includes or requires other assets), all of these
+will be returned in development mode. In production, only the bundle itself will be returned (which will include all its required dependencies concatenated within).
+
+In all cases, the urls returned here will contain their MD5 digest if the app is running in production.
+
+#### js(path, attributes) -> One or more <script> tags
+
+* filename (String) The filename of the asset relative to its asset directory
+* attributes (Object) An object containing attributes for the `<script>` tag
+
+Looks for a matching JS asset and returns `<script>` tag with the `src` attribute set. Additional attributes can be provided as the second argument.
+
+#### css(path, attributes) -> One or more <link> tags
+
+* filename (String) The filename of the asset relative to its asset directory
+* attributes (Object) An object containing attributes for the `<link>` tag
+
+Looks for a matching CSS asset and returns a `<link>` tag with the `href` attribute set. Additional attributes can be provided as the second argument - by default it will have `rel='stylesheet' media='screen'`.
+
+#### asset_path(path) -> One or more asset urls
+
+* filename (String) The filename of the asset relative to its asset directory
+
+Looks for any matching asset and returns the url to access it, e.g. `/assets/logo.png`. If the filename is a bundle, and the app is in production, an Array of urls will be returned instead.
+
 ## In production
 
 For production use, connect-mincer lets you pass in a Mincer manifest file and will use this to generate correct asset paths (with MD5 digests). Precompiling is easy, using Mincer.Manifest, and there's an example of this below. For now, let's assume you have precompiled your assets to the `/public/assets` directory. This directory will contain a `manifest.json` file which links asset filenames to their digest format.
@@ -189,6 +216,8 @@ All feedback or contributions are welcome!
 # TODO
 
 - add tests
+- add built-in helpers like Rails & Sprockets, like:
+  - asset-path, asset-data-uri, image
 - allow use of a remote domain (e.g. Amazon S3) in production for helper outputs
 
 # Licence
