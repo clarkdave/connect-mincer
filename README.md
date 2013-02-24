@@ -165,6 +165,7 @@ var connectMincer = new ConnectMincer({ ... });
 connectMincer.environment.registerHelper('version', function() {
   return require(__dirname + '/package.json').version;
 });
+app.use(connectMincer.assets());
 ```
 
 This will add a `version` helper which will be available in any asset, to be used like so:
