@@ -163,7 +163,7 @@ connect-mincer supports anything Mincer does, so bundles and supported engines w
 ``` javascript
 var connectMincer = new ConnectMincer({ ... });
 connectMincer.environment.registerHelper('version', function() {
-  require(__dirname, '/package.json').version;
+  return require(__dirname + '/package.json').version;
 });
 ```
 
@@ -178,6 +178,8 @@ Mincer supports helpers in EJS and Stylus. Fortunately, even if your asset is so
     css/main.less.ejs
 
 will first be processed by EJS (resolving things like `<%= version() %>`) and then LESS itself.
+
+**Note:** any modifications to the environment *must* be done before the connectMincer.assets() middleware is called. When the app runs in production mode, the environment is set to a read-only index (for speed), so any modifications must be done before this happens.
 
 # TODO
 

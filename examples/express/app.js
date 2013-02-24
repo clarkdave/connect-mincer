@@ -22,6 +22,10 @@ var mincer = new ConnectMincer({
   ]
 });
 
+mincer.environment.registerHelper('version', function() {
+  return require(__dirname + '/../../package.json').version;
+});
+
 // the main connectMincer middleware, which sets up a Mincer Environment and provides view helpers
 app.use(mincer.assets());
 
