@@ -1,10 +1,17 @@
 {
   "name": "connect-mincer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Connect middleware for Mincer (a JavaScript port of Sprockets).",
   "keywords": ["sprockets", "connect", "middleware", "mincer", "assets"],
   "homepage": "https://github.com/clarkdave/connect-mincer",
-  "author": "Dave Clark <contact@clarkdave.net>",
+  "author": "Dave Clark <me@clarkdave.net>",
+  "bugs": {
+    "url": "https://github.com/clarkdave/connect-mincer/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/clarkdave/connect-mincer/blob/master/LICENCE"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/clarkdave/connect-mincer"
