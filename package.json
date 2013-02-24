@@ -1,6 +1,6 @@
 {
   "name": "connect-mincer",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Connect middleware for Mincer (a JavaScript port of Sprockets).",
   "keywords": ["sprockets", "connect", "middleware", "mincer", "assets"],
   "homepage": "https://github.com/clarkdave/connect-mincer",
