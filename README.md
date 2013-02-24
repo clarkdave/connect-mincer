@@ -6,11 +6,12 @@ This is an Express-compatible, connect middleware for [Mincer](https://github.co
 
 Mincer is an excellent port of Sprockets, which means it is a robust and featured asset manager for your Node app. However, Mincer makes no assumptions about your application so by default it requires some work to get going with a typical Express app.
 
-Using connect-mincer, you can:
+Using connect-mincer, you can skip that work and simply:
 
 * Write and serve CoffeeScript, LESS, Stylus, etc
+* Have everything recompiled on each request (in development)
 * Serve files with an MD5 digest (for caching)
-* Precompile all your assets and have your Connect app read from the manifest
+* Precompile all your assets and have your Connect app read from the compile manifest
 
 ## Let's go!
 
