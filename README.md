@@ -65,10 +65,18 @@ The second piece of middleware, `connectMincer.createServer()`, sets up a Mincer
 
 Mincer and this middleware are unopinionated about where your keep your assets. When you initialise connect-mincer you pass in several options:
 
-- **root**: this is usually the root of your app. Asset paths are relative to this.
-- **production**: set to true if the app is running in production mode.
-- **mountPoint**: this is what the js, css and asset_path helpers use to create the URL for each asset.
-- **paths**: a list of directories where your assets are located.
+- **root**
+  - This is usually the root of your app. Asset paths are relative to this.
+- **production**
+  - Set to true if the app is running in production mode.
+- **paths**
+  - A list of directories where your assets are located.
+- **mountPoint** *(optional)*
+  - This is what the js, css and asset_path helpers use to create the URL for each asset. Defaults to `/assets`.
+- **precompileList** *(optional)*
+  - A list of assets to precompile in development. Defaults to `['*', '*/**']`.
+  - If you have a lot of individual assets which are bundled together, you may want to make this list more specific, otherwise precompiles will be slow and you may get errors (for example, if using Bootstrap, you'll get compile errors with certain .less files that are intended to be @imported only).
+  - Generally, this should be identical to the *compile* list you use during a `Manifest.compile` (see 'Precompiling' section).
 
 A typical app folder structure might be this:
 
