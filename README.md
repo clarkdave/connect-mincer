@@ -104,14 +104,14 @@ With this, a suitable path list would be:
 Now anything within these paths can be referenced in your views with the helpers like so:
 
     css('main.css')
-    css('blog/more.css')
+    css('print.css', { media: 'print' })
     js('jquery.js')
 
 Which would become:
 
-    <link href='/assets/main.css' />
-    <link href='/assets/blog/more.css' />
-    <script src='/assets/jquery.js' />
+    <link href='/assets/main.css' type='text/css' rel='stylesheet' media='screen'>
+    <link href='/assets/blog/more.css' type='text/css' rel='stylesheet' media='print'>
+    <script src='/assets/jquery.js'></script>
 
 ### View helpers
 
