@@ -8,7 +8,7 @@ Mincer is an excellent port of Sprockets, which means it is a robust and feature
 
 Using connect-mincer, you can skip that work and simply:
 
-* Write and serve CoffeeScript, LESS, Stylus, etc
+* Write and serve CoffeeScript, LESS, Stylus, Sass, etc
 * Have everything recompiled on each request (in development)
 * Serve files with an MD5 digest (for caching)
 * Use whatever directory structure you want
@@ -21,10 +21,12 @@ Using connect-mincer, you can skip that work and simply:
 Now, in your connect app:
 
 ``` javascript
-var connectMincer = require('connect-mincer')({
+var ConnectMincer = require('connect-mincer');
+
+var connectMincer = new ConnectMincer({
   root: __dirname,
   production: process.env.NODE_ENV === 'production',
-  assetUrl: '/assets',
+  mountPoint: '/assets',
   manifestFile: __dirname + '/public/assets/manifest.json',
   paths: [
     'assets/css',
@@ -63,7 +65,7 @@ Mincer and this middleware are unopinionated about where your keep your assets. 
 
 - **root**: this is usually the root of your app. Asset paths are relative to this.
 - **production**: set to true if the app is running in production mode.
-- **assetUrl**: this is what the js, css and asset_path helpers use to create the URL for each asset.
+- **mountPoint**: this is what the js, css and asset_path helpers use to create the URL for each asset.
 - **paths**: a list of directories where your assets are located.
 
 A typical app folder structure might be this:
@@ -152,7 +154,7 @@ If you were to run this from your root app directory, it would create the folder
 
 # TODO
 
-- add example Express app
+- add tests
 - allow use of a remote domain (e.g. Amazon S3) in production for helper outputs
 
 # LICENCE

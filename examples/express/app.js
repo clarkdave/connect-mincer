@@ -25,14 +25,14 @@ var mincer = new ConnectMincer({
 // the main connectMincer middleware, which sets up a Mincer Environment and provides view helpers
 app.use(mincer.assets());
 
-// this will set up a Mincer server listening on /assets, which will serve the compiled
-// version of assets. If the production flag is set on connectMincer, this server will
-// only serve assets that can be found in the manifestFile - so it is suitable for
-// production use and is similar to the connect.static() middleware
-// 
-// even so, it is generally recommended to *not* run this server in production, and instead
-// have a web-server like nginx serve all requests for things in the /public directory
-app.use('/assets', mincer.createServer());
+if (env === 'production' || env === 'staging') {
+  // in production, use the connect static() middleware to serve resources. In a real deployment
+  // you'd probably not want this, and would use nginx (or similar) instead
+  app.use(express.static(__dirname + '/public'));
+} else {
+  // in dev, just use the normal server which recompiles assets as needed
+  app.use('/assets', mincer.createServer());
+}
 
 // you can get the mincer environment directly, so you could add your own helpers to it
 var mincerEnv = mincer.environment;
