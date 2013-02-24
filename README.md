@@ -136,3 +136,7 @@ If you were to run this from your root app directory, it would create the folder
 
 - add example Express app
 - allow use of a remote domain (e.g. Amazon S3) in production for helper outputs
+
+# LICENCE
+
+[MIT](https://github.com/clarkdave/connect-mincer/blob/master/LICENCE)
