@@ -82,8 +82,9 @@ manifest.compile(['*', '*/**'], function(err, manifestData) {
       });
       var inp = fs.createReadStream('./public/assets/' + file);
       var out = fs.createWriteStream('./public/assets/' + file + '.gz');
-      inp.pipe(gzip).pipe(out);
-      done();
+      inp.pipe(gzip).pipe(out).on('close', function() {
+        done();
+      });
     }, function() {
       console.info('Finished compiling ' + files.length + ' assets');
     });
