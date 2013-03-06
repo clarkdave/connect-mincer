@@ -17,6 +17,10 @@ if (fs.existsSync('./public/assets')) {
 
 var environment = new Mincer.Environment('./');
 
+environment.registerHelper('version', function() {
+  return require(__dirname + '/../../../package.json').version;
+});
+
 /**
  * This minifies Javascript using the UglifyJS2 default compression settings. It also
  * preserves certain comments (the same ones as when you call uglifyjs with the --comments
