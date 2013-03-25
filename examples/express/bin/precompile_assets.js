@@ -7,7 +7,8 @@ var Mincer = require('mincer'),
     fs = require('fs'),
     zlib = require('zlib'),
     async = require('async'),
-    wrench = require('wrench')
+    wrench = require('wrench'),
+    mountPoint = '/assets'
 ;
 
 // remove existing manifest/assets if it exists
@@ -19,6 +20,15 @@ var environment = new Mincer.Environment('./');
 
 environment.registerHelper('version', function() {
   return require(__dirname + '/../../../package.json').version;
+});
+
+environment.registerHelper('asset_path', function(name, opts) {
+  var asset = environment.findAsset(name, opts);
+  if (!asset){
+    throw new Error("File [" + name + "] not found");
+  }
+
+  return mountPoint + '/' + asset.digestPath;
 });
 
 /**
