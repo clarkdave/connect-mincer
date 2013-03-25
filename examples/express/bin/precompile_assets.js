@@ -74,6 +74,12 @@ var manifest = new Mincer.Manifest(environment, './public/assets');
 console.info('Starting asset compilation');
 
 manifest.compile(['*', '*/**'], function(err, manifestData) {
+
+  if (err) {
+    console.error("Failed compile assets: " + (err.message || err.toString()));
+    process.exit(128);
+  }
+
   if (!manifestData) {
     console.info('No assets to compile');
   } else {
