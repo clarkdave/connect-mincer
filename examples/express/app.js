@@ -38,9 +38,6 @@ if (env === 'production' || env === 'staging') {
   app.use('/assets', mincer.createServer());
 }
 
-// you can get the mincer environment directly, so you could add your own helpers to it
-var mincerEnv = mincer.environment;
-
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 
@@ -48,5 +45,8 @@ app.get('/', function(req, res) {
   res.render('home.ejs');
 });
 
-app.listen(app.get('port'));
-console.info('Express app started on ' + app.get('port'));
+console.log(mincer.getHelper('css')('all.css'));
+
+app.listen(app.get('port'), function() {
+  console.info('Express app started on ' + app.get('port'));
+});
