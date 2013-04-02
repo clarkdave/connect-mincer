@@ -45,8 +45,6 @@ app.get('/', function(req, res) {
   res.render('home.ejs');
 });
 
-console.log(mincer.getHelper('css')('all.css'));
-
 app.listen(app.get('port'), function() {
   console.info('Express app started on ' + app.get('port'));
 });
