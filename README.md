@@ -73,6 +73,10 @@ Mincer and this middleware are unopinionated about where your keep your assets. 
   - A list of directories where your assets are located.
 - **mountPoint** *(optional)*
   - This is what the js, css and asset_path helpers use to create the URL for each asset. Defaults to `/assets`.
+- **assetHost** *(optional)*
+  - If specified, the view helpers will generate urls of the form `assetHost + mountPoint + asset`. E.g. `//j2938fj.cloudfront.net/assets/layout.css`
+  - You should specify the protocol, i.e. `http://`, `https://` or `//`
+  - This can be used to serve assets from a CDN like Cloudfront
 - **precompileList** *(optional)*
   - A list of assets to precompile in development. Defaults to `['*', '*/**']`.
   - If you have a lot of individual assets which are bundled together, you may want to make this list more specific, otherwise precompiles will be slow and you may get errors (for example, if using Bootstrap, you'll get compile errors with certain .less files that are intended to be @imported only).
@@ -221,12 +225,15 @@ will first be processed by EJS (resolving things like `<%= version() %>`) and th
 
 All feedback or contributions are welcome!
 
+# Changelog
+
+- *2013-05-03*: added `assetHost` option for serving assets from a specific host
+
 # TODO
 
 - add tests
 - add built-in helpers like Rails & Sprockets, like:
   - asset-path, asset-data-uri, image
-- allow use of a remote domain (e.g. Amazon S3) in production for helper outputs
 
 # Licence
 

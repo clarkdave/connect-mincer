@@ -11,6 +11,10 @@ var app = express();
 var mincer = new ConnectMincer({
   root: __dirname,
   production: env === 'production' || env === 'staging',
+  // uncomment to have view helpers generate urls of the form: //assets.example.com/assets/...
+  // assetHost: '//assets.example.com',
+  // you'll probably want to get this from a environment-specific config, e.g:
+  // assetHost: config.get('asset_host')
   mountPoint: '/assets',
   manifestFile: __dirname + '/public/assets/manifest.json',
   paths: [

@@ -63,3 +63,11 @@ In a production environment, you'd probably want to disable the connectMincer.cr
     }
 
 This is a basic example but should give you a good idea. If nginx is compiled with the `HttpGzipStaticModule` it will serve the `.gz` files from the compiled asset directory.
+
+If you want to serve assets from a different domain (like a CDN), you should pass the `assetHost` option:
+
+``` javascript
+assetHost: '//assets.example.com'
+```
+
+Now the view helpers will output URLs like: `//assets.example.com/assets/account/home.css`
