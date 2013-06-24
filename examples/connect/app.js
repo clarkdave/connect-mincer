@@ -29,7 +29,7 @@ if (env === 'production' || env === 'staging') {
 }
 
 // To use the view helpers, get them from the ConnectMincer instance directly, using the
-// getHelper() method:
+// getHelper('helper') or getHelpers() method:
 
 var helpers = mincer.getHelpers();
 

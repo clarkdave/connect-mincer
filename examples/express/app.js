@@ -23,7 +23,9 @@ var mincer = new ConnectMincer({
     'assets/js',
     'vendor/css',
     'vendor/js'
-  ]
+  ],
+  // precompiling can take a long time: when testing, you may want to turn it off
+  precompile: env !== 'test'
 });
 
 mincer.environment.registerHelper('version', function() {

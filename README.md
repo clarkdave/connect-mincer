@@ -221,12 +221,26 @@ will first be processed by EJS (resolving things like `<%= version() %>`) and th
 
 **Note:** any modifications to the environment *must* be done before the connectMincer.assets() middleware is called. When the app runs in production mode, the environment is set to a read-only index (for speed), so any modifications must be done before this happens.
 
+## Testing with connect-mincer
+
+By default, the connect-mincer middleware will run a `precompile` on everything in the `precompileList` when the app is first started. If you have a lot of assets, this can take a second or more, and really slow down your tests.
+
+If you're not relying on your assets working properly - for example, you're running functional tests on your routing logic and don't care about assets - you can opt to turn off precompile to speed things up.
+
+When you instantiate `ConnectMincer`, pass in the `precompile` option. The following example will enable precompiling for all but the `test` environment:
+
+var connectMincer = new ConnectMincer({
+  // <snip>
+  precompile: process.env.NODE_ENV !== 'test'
+});
+
 # Contibuting
 
 All feedback or contributions are welcome!
 
 # Changelog
 
+- *2013-06-24*: added `precompile` option (default: true) to allow/stop precompiling as needed
 - *2013-05-03*: added `assetHost` option for serving assets from a specific host
 
 # TODO
