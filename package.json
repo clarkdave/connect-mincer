@@ -31,7 +31,11 @@
     "csso": "*",
     "wrench": "*",
     "underscore": "*",
-    "async": "*"
+    "async": "*",
+    "mocha": "1.8.x",
+    "chai": "*",
+    "should": "*",
+    "sinon": "1.6.x"
   },
   "engines": {
     "node": ">= 0.6.0"
