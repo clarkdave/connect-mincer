@@ -37,6 +37,9 @@ var connectMincer = new ConnectMincer({
   ]
 });
 
+// access the internal Mincer object if you want to do anything extra to it, e.g.
+connectMincer.Mincer.CoffeeEngine.setOptions({ bare: false });
+
 app.use(connectMincer.assets());
 
 if (process.env.NODE_ENV !== 'production')
@@ -240,6 +243,7 @@ All feedback or contributions are welcome!
 
 # Changelog
 
+- *2013-10-25*: expose the internal Mincer object for direct changes
 - *2013-06-24*: added `precompile` option (default: true) to allow/stop precompiling as needed
 - *2013-05-03*: added `assetHost` option for serving assets from a specific host
 
