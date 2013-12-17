@@ -18,7 +18,7 @@
   },
   "main": "./lib/connect-mincer.js",
   "dependencies": {
-    "mincer": "0.4.5",
+    "mincer": "0.5.12",
     "underscore": "1.4.x"
   },
   "devDependencies": {
