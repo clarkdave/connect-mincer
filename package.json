@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git://github.com/clarkdave/connect-mincer"
   },
-  "main": "./lib/connect-mincer.js",
+  "main": "./lib/connect_mincer.js",
   "dependencies": {
     "mincer": "0.5.12",
     "underscore": "1.4.x"
@@ -35,7 +35,9 @@
     "mocha": "1.8.x",
     "chai": "*",
     "should": "*",
-    "sinon": "1.6.x"
+    "sinon": "1.6.x",
+    "supertest": "*",
+    "cheerio": "*"
   },
   "engines": {
     "node": ">= 0.6.0"
