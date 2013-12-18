@@ -72,7 +72,7 @@ Mincer and this middleware are unopinionated about where your keep your assets. 
   - This is usually the root of your app. Asset paths are relative to this.
 - **mincer**
   - (Optional) Use this to pass in your own Mincer object.
-  - If not provided, ConnectMincer will use its own bundled version of Mincer, which may be out of date. The Mincer version provided MUST be >= 5.0.0, as older versions have an unsupported API
+  - If not provided, ConnectMincer will use its own bundled version of Mincer, which may be out of date. The Mincer version provided MUST be >= 0.5.0, as older versions have an unsupported API
 - **production**
   - Set to true if the app is running in production mode.
 - **paths**
