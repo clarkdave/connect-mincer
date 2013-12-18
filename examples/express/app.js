@@ -2,13 +2,16 @@
 
 var express = require('express'),
     env = process.env.NODE_ENV,
-    ConnectMincer = require('../../')
+    ConnectMincer = require('../../'),
+    Mincer = require('mincer')
 ;
 
 var app = express();
 
 // set up connect-mincer middleware
 var mincer = new ConnectMincer({
+  // you can, optionally, pass in your own required Mincer class, so long as it is >= 0.5.0
+  mincer: Mincer,
   root: __dirname,
   production: env === 'production' || env === 'staging',
   // uncomment to have view helpers generate urls of the form: //assets.example.com/assets/...

@@ -1,0 +1,4 @@
+--require should
+--globals should
+--recursive
+--reporter dot

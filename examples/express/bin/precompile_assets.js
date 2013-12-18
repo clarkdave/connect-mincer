@@ -31,43 +31,8 @@ environment.registerHelper('asset_path', function(name, opts) {
   return mountPoint + '/' + asset.digestPath;
 });
 
-/**
- * This minifies Javascript using the UglifyJS2 default compression settings. It also
- * preserves certain comments (the same ones as when you call uglifyjs with the --comments
- * option)
- */
-environment.jsCompressor = function(context, data, callback) {
-  try {
-    var min = uglifyjs.minify(data, {
-      fromString: true,
-      output: {
-        comments: function(node, comment) {
-          var text = comment.value;
-          var type = comment.type;
-          if (type == 'comment2') {
-            return (/@preserve|@license|@cc_on/i).test(text);
-          }
-        }
-      }
-    });
-    callback(null, min.code);
-  } catch (err) {
-    console.err(err);
-    callback(err);
-  }
-};
-
-/**
- * This minifies CSS using the Csso default compression options.
- */
-environment.cssCompressor = function(context, data, callback) {
-  try {
-    callback(null, csso.justDoIt(data));
-  } catch (err) {
-    console.err(err);
-    callback(err);
-  }
-};
+environment.jsCompressor = 'uglify';
+environment.cssCompressor = 'csso';
 
 [
   'assets/images',
