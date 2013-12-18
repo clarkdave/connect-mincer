@@ -70,6 +70,9 @@ Mincer and this middleware are unopinionated about where your keep your assets. 
 
 - **root**
   - This is usually the root of your app. Asset paths are relative to this.
+- **mincer**
+  - (Optional) Use this to pass in your own Mincer object.
+  - If not provided, ConnectMincer will use its own bundled version of Mincer, which may be out of date. The Mincer version provided MUST be >= 5.0.0, as older versions have an unsupported API
 - **production**
   - Set to true if the app is running in production mode.
 - **paths**
@@ -80,10 +83,6 @@ Mincer and this middleware are unopinionated about where your keep your assets. 
   - If specified, the view helpers will generate urls of the form `assetHost + mountPoint + asset`. E.g. `//j2938fj.cloudfront.net/assets/layout.css`
   - You should specify the protocol, i.e. `http://`, `https://` or `//`
   - This can be used to serve assets from a CDN like Cloudfront
-- **precompileList** *(optional)*
-  - A list of assets to precompile in development. Defaults to `['*', '*/**']`.
-  - If you have a lot of individual assets which are bundled together, you may want to make this list more specific, otherwise precompiles will be slow and you may get errors (for example, if using Bootstrap, you'll get compile errors with certain .less files that are intended to be @imported only).
-  - Generally, this should be identical to the *compile* list you use during a `Manifest.compile` (see 'Precompiling' section).
 
 A typical app folder structure might be this:
 
@@ -224,33 +223,25 @@ will first be processed by EJS (resolving things like `<%= version() %>`) and th
 
 **Note:** any modifications to the environment *must* be done before the connectMincer.assets() middleware is called. When the app runs in production mode, the environment is set to a read-only index (for speed), so any modifications must be done before this happens.
 
-## Testing with connect-mincer
-
-By default, the connect-mincer middleware will run a `precompile` on everything in the `precompileList` when the app is first started. If you have a lot of assets, this can take a second or more, and really slow down your tests.
-
-If you're not relying on your assets working properly - for example, you're running functional tests on your routing logic and don't care about assets - you can opt to turn off precompile to speed things up.
-
-When you instantiate `ConnectMincer`, pass in the `precompile` option. The following example will enable precompiling for all but the `test` environment:
-
-var connectMincer = new ConnectMincer({
-  // <snip>
-  precompile: process.env.NODE_ENV !== 'test'
-});
 
 # Contibuting
 
-All feedback or contributions are welcome!
+All feedback or contributions are welcome! Please write tests (if possible)
 
 # Changelog
 
+- *2013-12-18* 1.0.0:
+  - support Mincer 0.5.x -- **Mincer 0.4.x is no longer supported**
+  - you can now pass in your own Mincer object if needed (e.g. bundled version is out of date)
+  - tests, so you can use connect-mincer and feel calmer about it
 - *2013-10-25*: expose the internal Mincer object for direct changes
 - *2013-06-24*: added `precompile` option (default: true) to allow/stop precompiling as needed
 - *2013-05-03*: added `assetHost` option for serving assets from a specific host
 
 # TODO
 
-- add tests
-- add built-in helpers like Rails & Sprockets, like:
+- test connect-mincer with bootstrap, nib, zurb, etc
+- add more built-in helpers like Rails & Sprockets, like:
   - asset-path, asset-data-uri, image
 
 # Licence
