@@ -37,7 +37,9 @@
     "should": "*",
     "sinon": "1.6.x",
     "supertest": "*",
-    "cheerio": "*"
+    "cheerio": "*",
+    "stylus": "*",
+    "nib": "*"
   },
   "engines": {
     "node": ">= 0.6.0"

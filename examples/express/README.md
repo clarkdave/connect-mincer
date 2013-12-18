@@ -1,4 +1,4 @@
-# connect-assets Express example
+# connect-mincer Express example
 
 This is an example Express v3 app using connect-mincer. It demonstrates compiling LESS and CoffeeScript with bundles.
 

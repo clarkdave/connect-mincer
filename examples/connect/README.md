@@ -1,4 +1,4 @@
-# connect-assets Connect example
+# connect-mincer Connect example
 
 This is an example Connect app using connect-mincer. It's much simpler than the Express example, but should show how you can use connect-mincer without Express.
 
