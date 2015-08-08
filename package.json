@@ -2,7 +2,13 @@
   "name": "connect-mincer",
   "version": "1.0.0",
   "description": "Connect middleware for Mincer (a JavaScript port of Sprockets).",
-  "keywords": ["sprockets", "connect", "middleware", "mincer", "assets"],
+  "keywords": [
+    "sprockets",
+    "connect",
+    "middleware",
+    "mincer",
+    "assets"
+  ],
   "homepage": "https://github.com/clarkdave/connect-mincer",
   "author": "Dave Clark <me@clarkdave.net>",
   "bugs": {
@@ -18,7 +24,7 @@
   },
   "main": "./lib/connect_mincer.js",
   "dependencies": {
-    "mincer": "0.5.12",
+    "mincer": "^1.3.0",
     "underscore": "1.4.x"
   },
   "devDependencies": {
