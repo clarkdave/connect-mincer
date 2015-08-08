@@ -28,24 +28,24 @@
     "underscore": "1.4.x"
   },
   "devDependencies": {
-    "express": "3.x",
-    "connect": "*",
-    "less": "*",
-    "ejs": "*",
-    "coffee-script": "1.4.x",
-    "uglify-js": "*",
-    "csso": "*",
-    "wrench": "*",
-    "underscore": "*",
     "async": "*",
-    "mocha": "1.8.x",
     "chai": "*",
+    "cheerio": "*",
+    "coffee-script": "1.4.x",
+    "connect": "*",
+    "csso": "*",
+    "ejs": "*",
+    "express": "^4.13.3",
+    "less": "*",
+    "mocha": "1.8.x",
+    "nib": "*",
     "should": "*",
     "sinon": "1.6.x",
-    "supertest": "*",
-    "cheerio": "*",
     "stylus": "*",
-    "nib": "*"
+    "supertest": "*",
+    "uglify-js": "*",
+    "underscore": "*",
+    "wrench": "*"
   },
   "engines": {
     "node": ">= 0.6.0"
