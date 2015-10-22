@@ -2,7 +2,13 @@
   "name": "connect-mincer",
   "version": "1.0.0",
   "description": "Connect middleware for Mincer (a JavaScript port of Sprockets).",
-  "keywords": ["sprockets", "connect", "middleware", "mincer", "assets"],
+  "keywords": [
+    "sprockets",
+    "connect",
+    "middleware",
+    "mincer",
+    "assets"
+  ],
   "homepage": "https://github.com/clarkdave/connect-mincer",
   "author": "Dave Clark <me@clarkdave.net>",
   "bugs": {
@@ -18,28 +24,28 @@
   },
   "main": "./lib/connect_mincer.js",
   "dependencies": {
-    "mincer": "0.5.12",
+    "mincer": "^1.3.0",
     "underscore": "1.4.x"
   },
   "devDependencies": {
-    "express": "3.x",
-    "connect": "*",
-    "less": "*",
-    "ejs": "*",
-    "coffee-script": "1.4.x",
-    "uglify-js": "*",
-    "csso": "*",
-    "wrench": "*",
-    "underscore": "*",
     "async": "*",
-    "mocha": "1.8.x",
     "chai": "*",
+    "cheerio": "*",
+    "coffee-script": "1.4.x",
+    "connect": "*",
+    "csso": "*",
+    "ejs": "*",
+    "express": "^4.13.3",
+    "less": "*",
+    "mocha": "1.8.x",
+    "nib": "*",
     "should": "*",
     "sinon": "1.6.x",
-    "supertest": "*",
-    "cheerio": "*",
     "stylus": "*",
-    "nib": "*"
+    "supertest": "*",
+    "uglify-js": "*",
+    "underscore": "*",
+    "wrench": "*"
   },
   "engines": {
     "node": ">= 0.6.0"
