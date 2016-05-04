@@ -14,10 +14,7 @@
   "bugs": {
     "url": "https://github.com/clarkdave/connect-mincer/issues"
   },
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/clarkdave/connect-mincer/blob/master/LICENCE"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/clarkdave/connect-mincer"
